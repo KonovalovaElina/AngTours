@@ -1,1 +1,30 @@
-<p>registration works!</p>,
+<div class="d-flex flex-column mt-3 registration-wrap">
+  <p>Ваш логин: {{login}}</p>
+  <div>
+    <input placeholder="Логин"
+      [ngClass]="{'input-error': login.length < 3}"
+      [(ngModel)]="login"/>
+  </div>
+  <div>
+    <input type="email" placeholder="Почта"
+      [(ngModel)]="email"/>
+  </div>
+  <div>
+    <input type="password" placeholder="Пароль"
+      [ngClass]="{'input-error': password.length < 6}"
+      [(ngModel)]="password"/>
+  </div>
+  <div>
+    <input type="password" placeholder="Повтор пароля"
+      [ngClass]="{'input-error': passwordRepeat !== password}"
+      [(ngModel)]="passwordRepeat"/>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center mt-3">
+  <button 
+  mat-flat-button
+  (click)="onReg($event)"
+  [disabled]="login.length < 3 || password.length < 6 || password !== passwordRepeat">
+  Зарегистрироваться</button>
+</div>

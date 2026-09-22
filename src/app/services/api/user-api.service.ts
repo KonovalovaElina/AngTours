@@ -2,8 +2,7 @@ import { inject, Injectable } from "@angular/core";
 import { API } from "../../shared/api";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { IAuthorization } from "../../models/authorization";
-import { IRegistration } from "../../models/registration";
+import { IAuthUser, IAuthUserRes, IRegisterUser, IRegUserRes } from "../../models/user";
 
 @Injectable ({
   providedIn: 'root'
@@ -15,11 +14,11 @@ export class UserApiService {
 
   constructor() {}
 
-  auth(body: IAuthorization): Observable<IAuthorization> {
-    return this.http.post<IAuthorization>(this.api.auth, body)
+  auth(body: IAuthUser): Observable<IAuthUserRes> {
+    return this.http.post<IAuthUserRes>(this.api.auth, body)
   }
 
-  register(body: IRegistration): Observable<IRegistration> {
-    return this.http.post<IRegistration>(this.api.register, body);
+  register(body: IRegisterUser): Observable<IRegUserRes> {
+    return this.http.post<IRegUserRes>(this.api.register, body);
   }
 }

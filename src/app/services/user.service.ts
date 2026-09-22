@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
+import { IUser } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  user: any;
+  user: IUser;
 
   constructor() { }
 
-  saveUserInStore(user: any): void {
+  saveUserInStore(user: IUser): void {
     this.setUser(user);
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  getUser(): any {
+  getUser(): IUser {
     return this.user;
   }
 
-  setUser(user: any): void {
+  setUser(user: IUser): void {
     this.user = user;
   }
 }

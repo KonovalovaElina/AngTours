@@ -26,7 +26,7 @@ app.post('/register', (req, res) => {
       // find users
       if (req.body?.login) {
         const isUserExist = parseJsonData.users.find((user) => user.login === req.body?.login);
-        if (!isUserExist) {
+        if (!isUserExist && req.body.password) {
             parseJsonData.users.push(req.body);
             const json = JSON.stringify(parseJsonData);
             fs.writeFileSync(userJson, json, 'utf-8', (data) => {}, (err) => {

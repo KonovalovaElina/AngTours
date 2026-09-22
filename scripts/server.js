@@ -4,7 +4,8 @@ const express = require('express');
 const { log } = require('console');
 
 // user
-const userJson = "./src/app/shared/mocks/users.json";
+const userJson = "./server-data/users.json";
+const toursJson = "./server-data/tours.json";
 const jsonFileData =  fs.readFileSync(userJson, 'utf-8');
 let  parseJsonData = JSON.parse(jsonFileData);
 
@@ -26,7 +27,7 @@ app.post('/register', (req, res) => {
       // find users
       if (req.body?.login) {
         const isUserExist = parseJsonData.users.find((user) => user.login === req.body?.login);
-        if (!isUserExist && req.body.password) {
+        if (!isUserExist) {
             parseJsonData.users.push(req.body);
             const json = JSON.stringify(parseJsonData);
             fs.writeFileSync(userJson, json, 'utf-8', (data) => {}, (err) => {
@@ -34,7 +35,7 @@ app.post('/register', (req, res) => {
             });
 
             // send response
-            res.send({ status: "OK" });
+            res.send({status: "ok"});
         } else {
           throw new Error('Пользователь уже зарегестрирован');
         }
@@ -78,7 +79,64 @@ app.post('/auth', (req, res) => {
       throw new Error('не найдено свойство login или password');
     }
   })
+ *-
 
+  //************** */ tours**************************************
+
+  app.get('/tours', (req, res) => { 
+    const jsonFileData =  fs.readFileSync(toursJson, 'utf-8', (err, data) => {}, (err) => {
+      console.log('err read file tours', err);});
+    res.send(jsonFileData);
+  });
+
+  /*******************get tour */
+  app.get('/tour/:id', (req, res) => { 
+    const jsonFileData =  fs.readFileSync(toursJson, 'utf-8', (err, data) => {}, (err) => {
+      console.log('err read file tours', err);});
+              // parse data
+      const  parseJsonData = JSON.parse(jsonFileData);
+      const paramId = req.params.id;
+
+
+      const item = parseJsonData.tours.find((tour) => tour.id === paramId);
+      if (item) {
+        res.send(item);
+      } else {
+        throw new Error('Тур не найден по id:', paramId);
+      }
+  });
+
+    /*******************get tour */
+    app.get('/tour/:id', (req, res) => { 
+      const jsonFileData =  fs.readFileSync(toursJson, 'utf-8', (err, data) => {}, (err) => {
+        console.log('err read file tours', err);});
+                // parse data
+        const  parseJsonData = JSON.parse(jsonFileData);
+        const paramId = req.params.id;
+
+
+        const item = parseJsonData.tours.find((tour) => tour.id === paramId);
+        if (item) {
+          res.send(item);
+        } else {
+          throw new Error('Тур не найден по id:', paramId);
+        }
+    });
+
+
+    /*******************get nearest tour */
+    app.get('/nearestTours', (req, res) => { 
+      const jsonFileData =  fs.readFileSync(toursJson, 'utf-8', (err, data) => {}, (err) => {
+        console.log('err read file tours', err);});
+
+                // parse data
+        const  parseJsonData = JSON.parse(jsonFileData);
+        const locationId = req.query?.locationId;
+        console.log('req.query', req.query)
+
+        const items = parseJsonData.tours.filter((tour) => tour.locationId === locationId);
+        res.send(items);
+    });
 
 // run and listen serve
 app.listen(port, () => {

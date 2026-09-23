@@ -33,6 +33,11 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/app/shared/mocks/",
+                "output": "/"
               }
             ],
             "styles": [

@@ -1,12 +1,17 @@
 <div class="d-flex flex-wrap">
   @for (item of tours; track item.id) {
-    <div class="tour-item">
-      <div>
-        <img src="/img/{{item.img}}"/>
-      </div>
-      <p>{{item.date}}</p>
-      <p>{{item.type}}</p>
-      <p>{{item.description}}</p>
-    </div>
+    <mat-card class="tour-card">
+      <img
+        mat-card-image
+        [src]="'/img/' + item.img"
+        [alt]="item.title ?? item.type"
+        style="height: 180px; object-fit: cover;"
+      />
+      <mat-card-content class="py-2">
+        <h3 class="m-0">{{ item.type }}</h3>
+        <small class="text-muted d-block mb-2">{{ item.date }}</small>
+        <p class="mb-0">{{ item.description }}</p>
+      </mat-card-content>
+    </mat-card>
   }
 </div>

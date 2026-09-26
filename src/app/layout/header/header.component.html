@@ -1,5 +1,23 @@
-<div class="layout-header">
-
-  <span class="user-greeting">{{ username }}</span>
-  
+<div class="layout-header d-flex justify-content-between align-items-center w-100">
+  <div class="menu-list d-flex flex-1">
+    <div>
+      <app-menu [items]="menuItems" label="Меню"/>
+    </div>
+  </div>
+  <div class="header-right-side d-flex align-items-center gap-3">
+    <div class="user-info-wrap">
+      {{ username }}
+    </div>
+    <div class="time-wrap">
+      {{ date | date: 'HH:mm:ss EEEE' }}
+    </div>
+    @if (username) {
+      <button
+        mat-raised-button
+        (click)="logout()"
+      >
+        Выйти
+      </button>
+    }
+  </div>
 </div>

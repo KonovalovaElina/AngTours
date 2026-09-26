@@ -4,6 +4,9 @@
   "newProjectRoot": "projects",
   "projects": {
     "AngTours": {
+      "i18n": {
+        "sourceLocale": "ru"
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {

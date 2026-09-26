@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { ToursComponent } from './pages/tours/tours.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 export const routes: Routes = [
 
@@ -15,6 +16,10 @@ export const routes: Routes = [
       {
         path: '',
         component: ToursComponent
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent
       }
     ]
   },

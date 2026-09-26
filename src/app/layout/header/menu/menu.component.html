@@ -1,0 +1,18 @@
+<button
+  mat-button
+  [matMenuTriggerFor]="menu"
+  aria-label="Открыть меню"
+>
+  Меню
+</button>
+
+<mat-menu #menu="matMenu">
+  @for (item of items; track item.route) {
+    <button
+      mat-menu-item
+      [routerLink]="item.route"
+    >
+      {{ item.title }}
+    </button>
+  }
+</mat-menu>

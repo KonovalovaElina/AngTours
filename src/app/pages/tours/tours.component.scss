@@ -1,11 +1,11 @@
-:host {
-  display: block;
-}
+.tours-wrap {
+  
+  & .tour-item {
+    width: 300px;
+    margin: 10px;
 
-.tour-card {
-  width: 300px;
-  margin: 10px;
-  & img {
-    width: 100%;
-  };
+    & img {
+      width: 100%;
+    }
+  }
 }

@@ -1,0 +1,5 @@
+mat-card {
+  & .mat-mdc-card-content {
+    overflow: auto;
+  }
+}

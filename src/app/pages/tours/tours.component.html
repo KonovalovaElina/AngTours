@@ -1,17 +1,22 @@
-<div class="d-flex flex-wrap">
-  @for (item of tours; track item.id) {
-    <mat-card class="tour-card">
-      <img
-        mat-card-image
-        [src]="'/img/' + item.img"
-        [alt]="item.title ?? item.type"
-        style="height: 180px; object-fit: cover;"
-      />
-      <mat-card-content class="py-2">
-        <h3 class="m-0">{{ item.type }}</h3>
-        <small class="text-muted d-block mb-2">{{ item.date }}</small>
-        <p class="mb-0">{{ item.description }}</p>
-      </mat-card-content>
-    </mat-card>
-  }
+<div class="tours-wrap">
+  <ngx-masonry>
+    @for (item of tours; track item.id) {
+      <mat-card ngxMasonryItem class="tour-item">
+        <img
+          mat-card-image
+          [src]="'/img/' + item.img"
+          [alt]="item.title ?? item.type"
+          style="height: 180px; object-fit: cover;"
+        />
+        <mat-card-content class="py-2">
+          <h4 class="m-0">{{ item.name }}</h4>
+          <small class="text-muted d-block mb-2">{{ item.date | date: 'longDate' }}</small>
+          <p class="mb-0">{{ item.description }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>Подробнее</button>
+        </mat-card-actions>
+      </mat-card>
+    }
+  </ngx-masonry>
 </div>

@@ -4,7 +4,6 @@ import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MenuComponent } from './menu/menu.component';
-
 @Component({
   selector: 'app-header',
   imports: [DatePipe, MenuComponent, MatButtonModule],
@@ -34,7 +33,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     const userData = this.userService.getUser();
-    this.username = userData.login;
+    this.username = userData?.login || '';
     setInterval(() => {
       this.date = new Date();
     }, 1000);

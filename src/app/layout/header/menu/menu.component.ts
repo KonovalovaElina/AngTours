@@ -1,10 +1,11 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { MatMenuModule, MatMenuTrigger, MatMenu } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-menu',
-  imports: [RouterLink, MatMenuModule],
+  imports: [RouterLink, MatToolbarModule, MatButtonModule],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss',
 })

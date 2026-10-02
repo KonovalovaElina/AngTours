@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ToursService } from '../../services/tours.service';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
@@ -13,15 +13,18 @@ import { HighlightActiveDirective } from '../../shared/directives/highlight-acti
   imports: [MatCardModule, CommonModule, MatButtonModule, NgxMasonryModule, HighlightActiveDirective],
   templateUrl: './tours.component.html',
   styleUrl: './tours.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToursComponent implements OnInit {
   private toursService = inject(ToursService);
   private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
   tours: ITour[] = [];
 
   ngOnInit(): void {
     this.toursService.getTours().subscribe((data: any) => {
       this.tours = data.tours;
+      this.cdr.detectChanges();
     })
   }
 

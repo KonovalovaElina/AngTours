@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, NgZone, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
@@ -30,13 +30,16 @@ export class HeaderComponent implements OnInit {
     private router: Router
   ) {}
   date = new Date();
+  private ngZone = inject(NgZone);
 
   ngOnInit(): void {
     const userData = this.userService.getUser();
     this.username = userData?.login || '';
-    setInterval(() => {
-      this.date = new Date();
-    }, 1000);
+    this.ngZone.runOutsideAngular(() => {
+      return setInterval(() => {
+        this.date = new Date();
+      }, 1000);
+    });
   }
 
   logout(): void {

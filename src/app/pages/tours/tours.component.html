@@ -1,11 +1,15 @@
-<div class="tours-wrap">
+<div class="tours-wrap"
+appHighlightActive
+[sort]="sort"
+[initFirst]="true"
+selector='.tour-item'
+(onEnter)="onEnter($event)">
   <ngx-masonry>
-    @for (item of tours; track item.id) {
-      <mat-card ngxMasonryItem class="tour-item">
+    @for (item of tours; track item.id; let i = $index) {
+      <mat-card ngxMasonryItem class="tour-item" [attr.data-tour-id]="item.id" [attr.index]="i">
         <img
           mat-card-image
           [src]="'/img/' + item.img"
-          [alt]="item.title ?? item.type"
           style="height: 180px; object-fit: cover;"
         />
         <mat-card-content class="py-2">
@@ -14,7 +18,7 @@
           <p class="mb-0">{{ item.description }}</p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button>Подробнее</button>
+          <button (click)="goToTour(item)" mat-button>Подробнее</button>
         </mat-card-actions>
       </mat-card>
     }

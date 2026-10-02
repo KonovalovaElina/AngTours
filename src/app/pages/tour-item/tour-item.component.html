@@ -1,0 +1,22 @@
+<div class="tour-wrap">
+  <mat-card class="tour-item" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>{{ tour.name }}</mat-card-title>
+        <mat-card-subtitle>{{ tour.price }}</mat-card-subtitle>
+        <img 
+        mat-card-xl-image 
+        [src]="'/img/' + tour.img"
+        />
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="mb-2">{{ tour.description }}</p>
+      <small class="text-muted d-block mb-2">{{ tour.tourOperator }}</small>
+      <small class="text-muted d-block mb-2">{{ tour.date | date: 'longDate' }}</small>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button>Оформить заказ</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

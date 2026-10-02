@@ -20,8 +20,15 @@ export const routes: Routes = [
       {
         path: 'settings',
         component: SettingsComponent
+      },
+      {
+        path: 'tour/:id',
+        loadComponent: () => import('./pages/tour-item/tour-item.component').then(c => c.TourItemComponent)
       }
     ]
   },
-  
+  {
+    path: '**',
+    component: ToursComponent
+  }
 ];

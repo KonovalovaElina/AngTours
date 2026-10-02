@@ -1,0 +1,21 @@
+:host {
+  display: block;
+}
+
+mat-card {
+  width: 70%;
+  margin: auto;
+
+  & img {
+    height: 100%;
+  }
+}
+
+mat-card-header {
+  margin-bottom: 20px;
+}
+
+mat-card-actions {
+  margin-left: 500px;
+  margin-bottom: 20px;
+}

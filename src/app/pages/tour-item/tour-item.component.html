@@ -16,7 +16,7 @@
       <small class="text-muted d-block mb-2">{{ tour.date | date: 'longDate' }}</small>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button>Оформить заказ</button>
+      <button (click)="goToOrder()" mat-raised-button>Оформить заказ</button>
     </mat-card-actions>
   </mat-card>
 </div>

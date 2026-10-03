@@ -1,0 +1,99 @@
+<h2>Оформление заказа</h2>
+
+<div class="order-card">
+  @if (tour) {
+    <div class="tour-info">
+      <h3>{{ tour.name }}</h3>
+      <p>{{ tour.description }}</p>
+      <p><strong>Оператор:</strong> {{ tour.tourOperator }}</p>
+      <p><strong>Дата:</strong> {{ tour.date | date:'longDate' }}</p>
+      <p><strong>Цена:</strong> {{ tour.price }}</p>
+    </div>
+  } @else {
+    <p>Загрузка тура...</p>
+  }
+
+  <div class="order-layout">
+    @if (!isSubmitted) {
+      <div class="order-details">
+        <!-- Сообщение об ошибке/предупреждении — простой блок вместо mat-snack-bar -->
+        @if (successMessage) {
+          <div class="alert-message">
+            {{ successMessage }}
+          </div>
+        }
+
+        <form (ngSubmit)="onSubmit()" #orderForm="ngForm">
+          <mat-form-field hintLabel="Минимум 2 символа">
+            <mat-label>Ваша фамилия</mat-label>
+            <input
+              matInput
+              name="surname"
+              required
+              minlength="2"
+              [(ngModel)]="surname"
+              #surnameInput="ngModel"
+              placeholder="Иванов"
+            />
+            <mat-hint align="end">{{ surname?.length || 0 }}/2+</mat-hint>
+            @if (surnameInput.invalid && surnameInput.touched) {
+              <mat-error>Минимум 2 символа</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field hintLabel="Минимум 2 символа">
+            <mat-label>Ваше имя</mat-label>
+            <input
+              matInput
+              name="name"
+              required
+              minlength="2"
+              [(ngModel)]="name"
+              #nameInput="ngModel"
+              placeholder="Иван"
+            />
+            <mat-hint align="end">{{ name?.length || 0 }}/2+</mat-hint>
+            @if (nameInput.invalid && nameInput.touched) {
+              <mat-error>Минимум 2 символа</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Ваш email</mat-label>
+            <input
+              matInput
+              name="email"
+              type="email"
+              required
+              [(ngModel)]="email"
+              #emailInput="ngModel"
+              placeholder="exam@example.com"
+            />
+            @if (emailInput.invalid && emailInput.touched) {
+              <mat-error>Введите корректный email</mat-error>
+            }
+          </mat-form-field>
+
+          <p>Мы свяжемся с Вами после получения заказа</p>
+
+          <div class="submit-wrapper">
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="!orderForm.valid"
+            >
+              Отправить заказ
+            </button>
+          </div>
+        </form>
+      </div>
+    } @else {
+      <!-- Экран успеха -->
+      <div class="success-block">
+        <h3>Заказ оформлен</h3>
+        <p>{{ successMessage }}</p>
+      </div>
+    }
+  </div>
+</div>

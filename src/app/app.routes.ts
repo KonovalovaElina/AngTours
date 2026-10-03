@@ -24,7 +24,11 @@ export const routes: Routes = [
       {
         path: 'tour/:id',
         loadComponent: () => import('./pages/tour-item/tour-item.component').then(c => c.TourItemComponent)
-      }
+      },
+      {
+        path: 'order',
+        loadComponent: () => import('./pages/order/order.component').then(c => c.OrderComponent)
+      },
     ]
   },
   {

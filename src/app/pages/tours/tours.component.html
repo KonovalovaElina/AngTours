@@ -1,23 +1,47 @@
-<div class="tours-wrap d-flex flex-wrap"
-appHighlightActive
-[sort]="sort"
-[initFirst]="true"
-selector='.tour-item'
-(onEnter)="onEnter($event)">
-  @for (item of tours; track item.id; let i = $index) {
-    <mat-card class="tour-item" [attr.data-tour-id]="item.id" [attr.index]="i">
-      <img
-        mat-card-image
-        [src]="'/img/' + item.img"
-      />
-      <mat-card-content class="py-2">
-        <h4 class="m-0">{{ item.name }}</h4>
-        <small class="text-muted d-block mb-2">{{ item.date | date: 'longDate' }}</small>
-        <p class="mb-0">{{ item.description }}</p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button (click)="goToTour(item)" mat-button>Подробнее</button>
-      </mat-card-actions>
-    </mat-card>
-  }
+<div class="tours-page-layout">
+  <div class="search-header">
+    <div class="input-search-wrap">
+      <mat-form-field appearance="outline" class="w-100">
+        <input (input)="searchTours($event)" matInput placeholder="Поиск...">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="tours-scroll-container" *ngIf="!isLoading">
+    @if (hasResults) {
+      <div class="tours-wrap d-flex flex-wrap"
+      appHighlightActive
+      [sort]="sort"
+      [initFirst]="true"
+      selector='.tour-item'
+      (onEnter)="onEnter($event)">
+        @for (item of tours; track item.id; let i = $index) {
+          <mat-card class="tour-item" [attr.data-tour-id]="item.id" [attr.index]="i">
+            <img
+              mat-card-image
+              [src]="'/img/' + item.img"
+            />
+            <mat-card-content class="py-2">
+              <h4 class="m-0">{{ item.name }}</h4>
+              <small class="text-muted d-block mb-2">{{ item.date | date: 'longDate' }}</small>
+              <p class="mb-0">{{ item.description }}</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button (click)="goToTour(item)" mat-button>Подробнее</button>
+            </mat-card-actions>
+          </mat-card>
+        }
+      </div>
+    } @else {
+      @if (isEmptyAfterSearch) {
+        <div class="no-results">
+          <h3>По вашему запросу ничего не найдено</h3>
+          <p>Измените критерии поиска</p>
+        </div>
+      } @else {
+        <div class="no-results">
+          <h3>Нет доступных туров</h3>
+        </div>
+      }
+    }
+  </div>
 </div>

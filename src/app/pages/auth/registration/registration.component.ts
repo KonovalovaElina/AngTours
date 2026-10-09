@@ -5,10 +5,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { UserApiService } from '../../../services/api/user-api.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
+import { LoaderComponent } from '../../../shared/components/loader/loader.component';
+import { AsyncPipe } from '@angular/common';
+import { LoaderService } from '../../../services/loader.service';
 
 @Component({
   selector: 'app-registration',
-  imports: [NgClass, FormsModule, MatButtonModule, MatSnackBarModule],
+  imports: [NgClass, FormsModule, MatButtonModule, MatSnackBarModule, LoaderComponent, AsyncPipe],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss',
 })
@@ -20,6 +23,9 @@ export class RegistrationComponent {
   userApiService = inject(UserApiService);
 
   private _snackBar = inject(MatSnackBar);
+
+  private loaderService = inject(LoaderService);
+  loaderStatus$ = this.loaderService.loader$;
 
   onReg(ev: Event): void {
     this.userApiService.register({login: this.login, password: this.password, email:this.email}).subscribe (() => {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthorizationComponent } from './authorization/authorization.component';
 import { RegistrationComponent } from './registration/registration.component';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -9,6 +9,4 @@ import {MatTabsModule} from '@angular/material/tabs';
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss'
 })
-export class AuthComponent {
-
-}
+export class AuthComponent {}

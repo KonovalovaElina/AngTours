@@ -28,3 +28,5 @@
   [disabled]="login.length < 3 || password.length < 6 || password !== passwordRepeat">
   Зарегистрироваться</button>
 </div>
+
+<app-loader [loaderStatus]="loaderStatus$ | async" />

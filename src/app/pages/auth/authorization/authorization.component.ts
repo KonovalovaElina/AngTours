@@ -7,9 +7,12 @@ import { UserService } from '../../../services/user.service';
 import { UserApiService } from '../../../services/api/user-api.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { LoaderComponent } from '../../../shared/components/loader/loader.component';
+import { AsyncPipe } from '@angular/common';
+import { LoaderService } from '../../../services/loader.service';
 @Component({
   selector: 'app-authorization',
-  imports: [NgClass, FormsModule, MatButtonModule, MatCheckboxModule, MatSnackBarModule],
+  imports: [NgClass, FormsModule, MatButtonModule, MatCheckboxModule, MatSnackBarModule, LoaderComponent, AsyncPipe],
   templateUrl: './authorization.component.html',
   styleUrl: './authorization.component.scss',
 })
@@ -23,6 +26,9 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
   userApiService = inject(UserApiService);
 
   private _snackBar = inject(MatSnackBar);
+  
+  private loaderService = inject(LoaderService);
+  loaderStatus$ = this.loaderService.loader$;
 
   constructor(private userService2: UserService) {
     console.log('constr init');

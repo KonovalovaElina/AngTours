@@ -25,3 +25,5 @@
   [disabled]="login.length < 3 || password.length < 6">
   Войти</button>
 </div>
+
+<app-loader [loaderStatus]="loaderStatus$ | async" />

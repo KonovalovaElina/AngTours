@@ -1,25 +1,23 @@
-<div class="tours-wrap"
+<div class="tours-wrap d-flex flex-wrap"
 appHighlightActive
 [sort]="sort"
 [initFirst]="true"
 selector='.tour-item'
 (onEnter)="onEnter($event)">
-  <ngx-masonry>
-    @for (item of tours; track item.id; let i = $index) {
-      <mat-card ngxMasonryItem class="tour-item" [attr.data-tour-id]="item.id" [attr.index]="i">
-        <img
-          mat-card-image
-          [src]="'/img/' + item.img"
-        />
-        <mat-card-content class="py-2">
-          <h4 class="m-0">{{ item.name }}</h4>
-          <small class="text-muted d-block mb-2">{{ item.date | date: 'longDate' }}</small>
-          <p class="mb-0">{{ item.description }}</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button (click)="goToTour(item)" mat-button>Подробнее</button>
-        </mat-card-actions>
-      </mat-card>
-    }
-  </ngx-masonry>
+  @for (item of tours; track item.id; let i = $index) {
+    <mat-card class="tour-item" [attr.data-tour-id]="item.id" [attr.index]="i">
+      <img
+        mat-card-image
+        [src]="'/img/' + item.img"
+      />
+      <mat-card-content class="py-2">
+        <h4 class="m-0">{{ item.name }}</h4>
+        <small class="text-muted d-block mb-2">{{ item.date | date: 'longDate' }}</small>
+        <p class="mb-0">{{ item.description }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button (click)="goToTour(item)" mat-button>Подробнее</button>
+      </mat-card-actions>
+    </mat-card>
+  }
 </div>

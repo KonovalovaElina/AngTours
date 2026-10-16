@@ -8,6 +8,7 @@
             "price": "€2,192",
             "img": "pic1.jpg",
             "type": "multi",
+            "date": "2026-10-26T07:53:26Z",
             "locationId": "1fe323"
         },
         {
@@ -18,8 +19,8 @@
             "price": "€3,579",
             "img": "pic2.jpg",
             "type": "multi",
-            "date": "2026-09-26T07:53:26Z",
-                "locationId": "1fe2gfg233"
+            "date": "2026-11-20T07:53:26Z",
+            "locationId": "1fe2gfg233"
         },
         {
             "id": "2",
@@ -28,7 +29,8 @@
             "tourOperator": "LocalAdventures",
             "price": "€1,100",
             "img": "pic3.jpg",
-            "date": "2026-09-26T07:53:26Z",
+            "type": "single",
+            "date": "2026-11-02T07:53:26Z",
             "locationId": "1fe2gfg233"
         },
         {
@@ -38,6 +40,8 @@
             "tourOperator": "Emerald Waterways",
             "price": "€825",
             "img": "pic4.jpg",
+            "type": "single",
+            "date": "2026-10-29T07:53:26Z",
             "locationId": "1fe21233"
         },
         {
@@ -47,7 +51,8 @@
             "tourOperator": "Bali Bucket List Tours",
             "price": "€761",
             "img": "pic5.jpg",
-            "type": "multi"
+            "type": "multi",
+            "date": "2026-10-20T07:53:26Z"
         },
         {
             "id": "4",
@@ -56,6 +61,8 @@
             "tourOperator": "BH Lanka Tours",
             "price": "€1200",
             "img": "pic6.jpg",
+            "type": "single",
+            "date": "2026-10-30T07:53:26Z",
             "locationId": "1fe2gfg233"
         },
         {
@@ -65,6 +72,8 @@
             "tourOperator": "LocalAdventures",
             "price": "€950",
             "img": "pic7.jpg",
+            "type": "single",
+            "date": "2026-10-25T07:53:26Z",
             "locationId": "1fe21233"
         },
         {
@@ -75,6 +84,7 @@
             "price": "€1200",
             "img": "pic8.jpg",
             "type": "single",
+            "date": "2026-10-31T07:53:26Z",
             "locationId": "1fe2gfg233"
         },
         {
@@ -84,6 +94,8 @@
             "tourOperator": "LocalAdventures",
             "price": "€680",
             "img": "pic9.jpg",
+            "type": "multi",
+            "date": "2026-11-30T07:53:26Z",
             "locationId": "1fe323"
         },
         {
@@ -93,6 +105,8 @@
             "tourOperator": "Emerald Waterways",
             "price": "€1,279",
             "img": "pic10.jpg",
+            "type": "single",
+            "date": "2026-11-11T07:53:26Z",
             "locationId": "1fe21233"
         },
         {
@@ -102,6 +116,8 @@
             "tourOperator": "LocalAdventures",
             "price": "€1,192",
             "img": "pic11.jpg",
+            "type": "single",
+            "date": "2026-10-31T07:53:26Z",
             "locationId": "1fe2gfg233"
         },
         {
@@ -111,6 +127,8 @@
             "tourOperator": "LocalAdventures",
             "price": "€2,192",
             "img": "pic12.jpg",
+            "type": "multi",
+            "date": "2026-11-15T07:53:26Z",
             "locationId": "1fe2gfg233"
         },
         {
@@ -121,6 +139,7 @@
             "price": "€3,579",
             "img": "pic13.jpg",
             "type": "single",
+            "date": "2026-11-25T07:53:26Z",
             "locationId": "1fe21233"
         },
         {
@@ -130,6 +149,8 @@
             "tourOperator": "LocalAdventures",
             "price": "€1,100",
             "img": "pic3.jpg",
+            "type": "single",
+            "date": "2026-10-25T07:53:26Z",
             "locationId": "1fe2gfg233"
         },
         {
@@ -139,6 +160,8 @@
             "tourOperator": "Emerald Waterways",
             "price": "€825",
             "img": "pic4.jpg",
+            "type": "single",
+            "date": "2026-11-28T07:53:26Z",
             "locationId": "1fe2gfg233"
         },
         {
@@ -148,6 +171,8 @@
             "tourOperator": "Bali Bucket List Tours",
             "price": "€761",
             "img": "pic5.jpg",
+            "type": "single",
+            "date": "2026-11-05T07:53:26Z",
             "locationId": "1fe323"
         },
         {
@@ -157,6 +182,8 @@
             "tourOperator": "BH Lanka Tours",
             "price": "€1200",
             "img": "pic6.jpg",
+            "type": "multi",
+            "date": "2026-11-13T07:53:26Z",
             "locationId": "1fe2gfg233"
         },
         {
@@ -166,6 +193,8 @@
             "tourOperator": "LocalAdventures",
             "price": "€950",
             "img": "pic7.jpg",
+            "type": "multi",
+            "date": "2026-10-31T07:53:26Z",
             "locationId": "1fe21233"
         },
         {
@@ -175,6 +204,8 @@
             "tourOperator": "Emerald Waterways",
             "price": "€1200",
             "img": "pic8.jpg",
+            "type": "single",
+            "date": "2026-11-17T07:53:26Z",
             "locationId": "1fe2gfg233"
         },
         {
@@ -184,6 +215,8 @@
             "tourOperator": "LocalAdventures",
             "price": "€680",
             "img": "pic9.jpg",
+            "type": "single",
+            "date": "2026-11-05T07:53:26Z",
             "locationId": "1fe2gfg233"
         },
         {
@@ -193,6 +226,8 @@
             "tourOperator": "Emerald Waterways",
             "price": "€1,279",
             "img": "pic10.jpg",
+            "type": "multi",
+            "date": "2026-11-29T07:53:26Z",
             "locationId": "1fe21233"
         },
         {
@@ -202,6 +237,8 @@
             "tourOperator": "LocalAdventures",
             "price": "€1,192",
             "img": "pic11.jpg",
+            "type": "single",
+            "date": "2026-11-30T07:53:26Z",
             "locationId": "1fe2g2233"
         },
         {
@@ -211,6 +248,8 @@
             "tourOperator": "LocalAdventures",
             "price": "€2,192",
             "img": "pic12.jpg",
+            "type": "multi",
+            "date": "2026-11-10T07:53:26Z",
             "locationId": "1fe2g2233"
         },
         {
@@ -220,6 +259,8 @@
             "tourOperator": "Emerald Waterways",
             "price": "€3,579",
             "img": "pic2.jpg",
+            "type": "multi",
+            "date": "2026-11-12T07:53:26Z",
             "locationId": "1fe2g2233"
         },
         {
@@ -229,6 +270,8 @@
             "tourOperator": "LocalAdventures",
             "price": "€1,100",
             "img": "pic14.jpg",
+            "type": "single",
+            "date": "2026-11-11T07:53:26Z",
             "locationId": "1fe2g2233"
         },
         {
@@ -238,6 +281,8 @@
             "tourOperator": "Emerald Waterways",
             "price": "€825",
             "img": "pic4.jpg",
+            "type": "single",
+            "date": "2026-11-25T07:53:26Z",
             "locationId": "1fe2g2233"
         },
         {
@@ -247,6 +292,8 @@
             "tourOperator": "Bali Bucket List Tours",
             "price": "€761",
             "img": "pic5.jpg",
+            "type": "multi",
+            "date": "2026-10-29T07:53:26Z",
             "locationId": "1fe2g2233"
         },
         {
@@ -256,6 +303,8 @@
             "tourOperator": "BH Lanka Tours",
             "price": "€1200",
             "img": "pic6.jpg",
+            "type": "single",
+            "date": "2026-11-19T07:53:26Z",
             "locationId": "1fe21233"
         },
         {
@@ -265,6 +314,8 @@
             "tourOperator": "LocalAdventures",
             "price": "€950",
             "img": "pic7.jpg",
+            "type": "multi",
+            "date": "2026-11-20T07:53:26Z",
             "locationId": "1fe21233"
         },
         {
@@ -274,6 +325,8 @@
             "tourOperator": "Emerald Waterways",
             "price": "€1200",
             "img": "pic8.jpg",
+            "type": "single",
+            "date": "2026-11-27T07:53:26Z",
             "locationId": "1fe323"
         },
         {
@@ -283,6 +336,8 @@
             "tourOperator": "LocalAdventures",
             "price": "€680",
             "img": "pic9.jpg",
+            "type": "single",
+            "date": "2026-11-08T07:53:26Z",
             "locationId": "1feas2g2233"
         },
         {
@@ -292,6 +347,8 @@
             "tourOperator": "Emerald Waterways",
             "price": "€1,279",
             "img": "pic10.jpg",
+            "type": "multi",
+            "date": "2026-11-16T07:53:26Z",
             "locationId": "1feas2g2233"
         },
         {
@@ -301,6 +358,8 @@
             "tourOperator": "LocalAdventures",
             "price": "€1,192",
             "img": "pic11.jpg",
+            "type": "single",
+            "date": "2026-11-21T07:53:26Z",
             "locationId": "1feas2g2233"
         },
         {
@@ -314,6 +373,7 @@
             "price": "€2,192",
             "img": "pic12.jpg",
             "type": "multi",
+            "date": "2026-12-02T07:53:26Z",
             "locationId": "1fe21233"
         },
         {
@@ -326,6 +386,7 @@
             "price": "€2,192",
             "img": "pic12.jpg",
             "type": "multi",
+            "date": "2026-12-05T07:53:26Z",
             "locationId": "1feas2g2233"
         },
         {
@@ -338,6 +399,7 @@
             "price": "€2,192",
             "img": "pic12.jpg",
             "type": "multi",
+            "date": "2026-12-11T07:53:26Z",
             "locationId": "1feas2g2233"
         }
     ]

@@ -2,7 +2,7 @@
   <div class="search-header">
     <div class="input-search-wrap">
       <mat-form-field appearance="outline" class="w-100">
-        <input (input)="searchTours($event)" matInput placeholder="Поиск...">
+        <input #searchInput matInput placeholder="Поиск...">
       </mat-form-field>
     </div>
   </div>
@@ -10,7 +10,6 @@
     @if (hasResults) {
       <div class="tours-wrap d-flex flex-wrap"
       appHighlightActive
-      [sort]="sort"
       [initFirst]="true"
       selector='.tour-item'
       (onEnter)="onEnter($event)">

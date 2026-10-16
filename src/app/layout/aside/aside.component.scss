@@ -7,4 +7,16 @@
 
 .aside {
   border-left: 1px solid var(--border-color);
+  padding-left: 30px;
 }
+
+mat-form-field {
+  max-width: 200px;
+}
+
+button {
+  margin-top: 20px;
+  margin-left: 13px;
+}
+
+

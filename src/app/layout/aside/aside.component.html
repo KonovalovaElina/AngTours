@@ -12,10 +12,10 @@
   <h6>Дата вылета</h6>
   <mat-form-field>
     <mat-label>Выберите дату</mat-label>
-    <input matInput [matDatepicker]="selectedDate" [value]="selectedDate" (dateChange)="onDateChange($event)">
+    <input #dateInput matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" (dateChange)="onDateChange($event)">
     <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="selectedDate"></mat-datepicker-toggle>
-    <mat-datepicker #selectedDate></mat-datepicker>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
   <button mat-flat-button (click)="onResetFilters()">Сбросить фильтры</button>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
@@ -20,6 +20,9 @@ import { MatButtonModule } from '@angular/material/button';
 
 export class AsideComponent implements OnInit {
   private filtersService = inject(FiltersService);
+  private cdr = inject(ChangeDetectorRef);
+
+  @ViewChild('dateInput') dateInputEl!: ElementRef<HTMLInputElement>;
 
   selectedType: string | null = null;
   selectedDate: Date | null = null;
@@ -28,8 +31,8 @@ export class AsideComponent implements OnInit {
 
   tourTypes = [
     { key: null, label: 'Все типы' },
-    { key: 'single', label: 'На одного' },
-    { key: 'multi', label: 'На двоих' }
+    { key: 'single', label: 'Одиночный' },
+    { key: 'multi', label: 'Групповой' }
   ];
 
   ngOnInit(): void {
@@ -53,8 +56,14 @@ export class AsideComponent implements OnInit {
 
   onResetFilters(): void {
     this.filtersService.reset();
-
     this.selectedType = null;
     this.selectedDate = null;
+
+    // Принудительно сбрасываем значение в DOM-инпуте
+    if (this.dateInputEl) {
+      this.dateInputEl.nativeElement.value = '';
+    }
+
+    this.cdr.detectChanges();
   }
 }

@@ -37,7 +37,7 @@ export class ToursComponent implements OnInit, AfterViewInit {
   private router = inject(Router);
   private cdr = inject(ChangeDetectorRef);
 
-  @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>;
 
   tours: ITour[] = [];
   toursCopy: ITour[] = [];
@@ -113,30 +113,24 @@ export class ToursComponent implements OnInit, AfterViewInit {
 
     // Фильтр по дате
     if (this.currentFilters.tourDate) {
-      const filterDay = this.normalizeDateForFilter(this.currentFilters.tourDate);
-      if (!filterDay) {
+      const filterDate = this.toStartOfDay(new Date(this.currentFilters.tourDate));
+
+      if (isNaN(filterDate.getTime())) {
         console.warn('[Debug] Невалидная дата в фильтре');
         return;
       }
 
-      console.log(
-        '[Debug] Фильтр по дате (локальные Y-M-D):',
-        `${filterDay.y}-${filterDay.m.toString().padStart(2, '0')}-${filterDay.d.toString().padStart(2, '0')}`
-      );
+      console.log('[Debug] Фильтр по дате (timestamp):', filterDate.getTime());
 
       result = result.filter((tour) => {
         if (!tour.date) return false;
-        const tourDay = this.normalizeDateForFilter(tour.date);
-        if (!tourDay) return false;
 
-        return (
-          tourDay.y === filterDay.y &&
-          tourDay.m === filterDay.m &&
-          tourDay.d === filterDay.d
-        );
+        const tourDate = this.toStartOfDay(new Date(tour.date));
+        if (isNaN(tourDate.getTime())) return false;
+
+        return tourDate.getTime() === filterDate.getTime();
       });
     }
-
     const isAllCleared = (
       !this.currentFilters.searchText && 
       !this.currentFilters.tourType && 
@@ -152,15 +146,10 @@ export class ToursComponent implements OnInit, AfterViewInit {
     this.cdr.markForCheck();
   }
 
-  private normalizeDateForFilter(date: Date | string): { y: number; m: number; d: number } | null {
-    const d = typeof date === 'string' ? new Date(date) : date;
-    if (isNaN(d.getTime())) return null;
-
-    return {
-      y: d.getFullYear(),
-      m: d.getMonth() + 1,
-      d: d.getDate()
-    };
+  private toStartOfDay(date: Date): Date {
+    const d = new Date(date);
+    d.setHours(0, 0, 0, 0);
+    return d;
   }
 
   clearSearchInput(): void {

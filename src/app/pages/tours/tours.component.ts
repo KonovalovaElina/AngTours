@@ -4,16 +4,18 @@ import { MatCardModule } from '@angular/material/card';
 import { CommonModule, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
-import { ITour } from '../../models/tour';
+import { ILocation, ITour, IWeatherData } from '../../models/tour';
 import { FiltersService, FiltersState } from '../../services/filters.service';
 import { HighlightActiveDirective } from '../../shared/directives/highlight-active.directive';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 // RxJS
 import { fromEvent, Subject } from 'rxjs';
 import { debounceTime, map, tap, takeUntil } from 'rxjs/operators';
+import { MapComponent } from '../../shared/components/map/map.component';
 
 @Component({
   selector: 'app-tours',
@@ -25,7 +27,9 @@ import { debounceTime, map, tap, takeUntil } from 'rxjs/operators';
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    NgIf
+    NgIf,
+    NzModalModule,
+    MapComponent
   ],
   templateUrl: './tours.component.html',
   styleUrl: './tours.component.scss',
@@ -47,10 +51,14 @@ export class ToursComponent implements OnInit, AfterViewInit {
   currentFilters: FiltersState | null = null;
   
   private destroy$ = new Subject<void>();
+  public showModal = false;
+  public mapCountryName: string = null;
+  location: ILocation;
+  weatherData: IWeatherData;
 
   ngOnInit(): void {
-    this.toursService.getTours().subscribe((data: any) => {
-      this.tours = data.tours;
+    this.toursService.getTours().subscribe((toursData) => {
+      this.tours = toursData;
       this.toursCopy = [...this.tours];
       this.isLoading = false;
       this.applyFilters();
@@ -176,14 +184,6 @@ export class ToursComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // sort(item1: HTMLElement, item2: HTMLElement): number {
-  //   if(parseFloat(item1.style.top) == parseFloat(item2.style.top)) {
-  //     return parseFloat(item1.style.left) < parseFloat(item2.style.left) ? -1 : 1;
-  //   } else {
-  //     return parseFloat(item1.style.top) - parseFloat(item2.style.top);
-  //   }
-  // }
-
   onEnter(ev: {el: HTMLElement, index: number}) {
     const tourId = ev.el.getAttribute('data-tour-id');
     if (tourId) {
@@ -192,17 +192,23 @@ export class ToursComponent implements OnInit, AfterViewInit {
     console.log('tourId', tourId)
   }
 
-//   searchTours(ev: Event): void {
-//     const searchValue = (ev.target as HTMLInputElement).value;
-//     const regExp = new RegExp(searchValue, 'i');
+  showMap(ev: Event, tour: ITour, code: string): void {
+    ev.stopPropagation();
+    this.mapCountryName = tour.country?.name_ru;
+    
+    this.toursService.getCountryByCode(code).subscribe((data) => {
+      if (!data || !data.countryData?.latlng?.length) return;
 
-//     if (!searchValue) {
-//       this.tours = [...this.toursCopy];
-//     } else {
-//       this.tours = this.toursCopy.filter((el) => {
-//         return regExp.test(el.name);
-//       });
-//     }
-//   }
-// }
+      this.location = { lat: data.countryData.latlng[0], lng: data.countryData.latlng[1] };
+      this.weatherData = data.weatherData;
+
+      this.showModal = true;
+      this.cdr.markForCheck();
+    });
+  }
+
+  closeModal(): void {
+    this.showModal = false;
+    this.cdr.markForCheck();
+  }
 }

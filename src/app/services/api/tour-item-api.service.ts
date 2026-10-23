@@ -7,7 +7,7 @@ import { ITour } from "../../models/tour";
   providedIn: 'root'
 })
 export class TourItemApiService {
-  private api = API;
+  private api = inject(API);
   private http = inject(HttpClient);
   constructor() {}
 

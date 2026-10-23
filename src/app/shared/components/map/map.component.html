@@ -1,0 +1,7 @@
+<div class="map-container">
+  <div #map *ngIf="location; else loading" class="map"></div>
+</div>
+
+<ng-template #loading>
+  <p>Загрузка карты…</p>
+</ng-template>

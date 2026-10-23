@@ -5,7 +5,11 @@ const { log } = require('console');
 
 // user
 const userJson = "./server-data/users.json";
+//tours
 const toursJson = "./server-data/tours.json";
+//countries
+const countriesJson = "./server-data/countries.json";
+
 const jsonFileData =  fs.readFileSync(userJson, 'utf-8');
 let  parseJsonData = JSON.parse(jsonFileData);
 
@@ -35,12 +39,13 @@ app.post('/register', (req, res) => {
             });
 
             // send response
-            res.send({status: "ok"});
+            res.json({status: "ok"});
         } else {
-          throw new Error('Пользователь уже зарегестрирован');
+            res.status(500).json({error:'error'});
+
         }
       } else {
-        throw new Error('не найдено свойство login');
+            res.status(500).json({error:'не найдено свойство login'});
       }
       console.log('parseJsonData Registration', parseJsonData);
 
@@ -136,6 +141,18 @@ app.post('/auth', (req, res) => {
 
         const items = parseJsonData.tours.filter((tour) => tour.locationId === locationId);
         res.send(items);
+    });
+
+
+    /*******************get countries */
+    app.get('/countries', (req, res) => { 
+      const jsonFileData =  fs.readFileSync(countriesJson, 'utf-8', (err, data) => {}, (err) => {
+        console.log('err read file tours', err);});
+
+                // parse data
+        const  parseJsonData = JSON.parse(jsonFileData);
+
+        res.send(parseJsonData);
     });
 
 // run and listen serve

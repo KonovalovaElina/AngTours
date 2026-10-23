@@ -56,14 +56,6 @@ export class AsideComponent implements OnInit {
 
   onResetFilters(): void {
     this.filtersService.reset();
-    this.selectedType = null;
-    this.selectedDate = null;
-
-    // Принудительно сбрасываем значение в DOM-инпуте
-    if (this.dateInputEl) {
-      this.dateInputEl.nativeElement.value = '';
-    }
-
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
   }
 }

@@ -10,7 +10,7 @@ import { LoaderService } from "../loader.service";
 })
 
 export class UserApiService {
-  private api = API;
+  private api = inject(API);
   private http = inject(HttpClient);
   private loaderService = inject(LoaderService);
 

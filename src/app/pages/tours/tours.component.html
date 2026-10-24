@@ -30,6 +30,14 @@
             </mat-card-content>
             <mat-card-actions>
               <button (click)="goToTour(item)" mat-button>Подробнее</button>
+              <div class="basket my-2 ml-2">
+                @if(!item.inBasket) {
+                  <i (click)="setItemToBasket($event, item)" class="pi pi-cart-plus" style="color: green"></i>
+                }
+                @else {
+                  <i (click)="removeItemFromBasket($event, item)" class="pi pi-cart-minus" style="color: red"></i>
+                }
+              </div>
             </mat-card-actions>
           </mat-card>
         }

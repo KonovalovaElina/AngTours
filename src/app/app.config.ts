@@ -15,6 +15,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideAnimationsAsync(),
-    { provide: NZ_I18N, useValue: ru_RU}
+    { provide: NZ_I18N, useValue: ru_RU }
   ]
 };

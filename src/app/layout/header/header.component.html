@@ -5,6 +5,16 @@
     </div>
   </div>
   <div class="header-right-side d-flex align-items-center gap-3">
+    <div class="basket mr-4">
+      <p-overlaybadge
+        badgeSize="small"
+        [value]="(basketStore$ | async).length"
+        severity="danger">
+        <div class="basket-icon-wrap">
+          <i class="pi pi-cart-arrow-down"></i>
+        </div>
+      </p-overlaybadge>
+    </div>
     <div class="user-info-wrap">
       {{ username }}
     </div>

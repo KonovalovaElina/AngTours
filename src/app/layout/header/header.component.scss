@@ -15,4 +15,16 @@
   height: 100%;
   padding: 4px 6px;
   font-size: 0.875rem;
+
+  & .header-right-side {
+    & .basket {
+      display: flex;
+      align-items: center;
+      & .basket-icon-wrap {
+        position: relative;
+        top: 10px;
+        font-size: 0.8rem;
+      }
+    }
+  }
 }

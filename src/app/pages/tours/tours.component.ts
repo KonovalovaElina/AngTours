@@ -11,11 +11,13 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { MapComponent } from '../../shared/components/map/map.component';
+import { BasketService } from '../../services/basket.service';
 
 // RxJS
 import { fromEvent, Subject } from 'rxjs';
 import { debounceTime, map, tap, takeUntil } from 'rxjs/operators';
-import { MapComponent } from '../../shared/components/map/map.component';
+
 
 @Component({
   selector: 'app-tours',
@@ -36,10 +38,14 @@ import { MapComponent } from '../../shared/components/map/map.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToursComponent implements OnInit, AfterViewInit {
-  private toursService = inject(ToursService);
-  private filtersService = inject(FiltersService);
-  private router = inject(Router);
-  private cdr = inject(ChangeDetectorRef);
+  
+  constructor(
+    private toursService: ToursService,
+    private filtersService: FiltersService,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private basketService: BasketService,
+  ) {}
 
   @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>;
 
@@ -55,6 +61,7 @@ export class ToursComponent implements OnInit, AfterViewInit {
   public mapCountryName: string = null;
   location: ILocation;
   weatherData: IWeatherData;
+
 
   ngOnInit(): void {
     this.toursService.getTours().subscribe((toursData) => {
@@ -209,6 +216,18 @@ export class ToursComponent implements OnInit, AfterViewInit {
 
   closeModal(): void {
     this.showModal = false;
+    this.cdr.markForCheck();
+  }
+
+  setItemToBasket(ev: Event, item: ITour): void {
+    ev.stopPropagation();
+    this.basketService.setItemToBasket(item);
+    this.cdr.markForCheck();
+  }
+
+  removeItemFromBasket(ev: Event, item: ITour): void {
+    ev.stopPropagation();
+    this.basketService.removeItemFromBasket(item);
     this.cdr.markForCheck();
   }
 }

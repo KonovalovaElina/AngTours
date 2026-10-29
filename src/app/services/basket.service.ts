@@ -11,11 +11,16 @@ export class BasketService {
   private basketSubject = new BehaviorSubject(this.basketStore);
   basketStore$ = this.basketSubject.asObservable();
 
-  constructor() {}
+  readonly instanceId = Math.random().toString(36).slice(2, 8);
+
+  constructor() {
+    console.log('BasketService создан, instance id:', this.instanceId);
+  }
 
   setItemToBasket(item: ITour): void {
     this.basketStore.push(item);
     item.inBasket = true;
+    console.log('addItem called, instance id:', Math.random());
     this.basketSubject.next(this.basketStore);
   }
 

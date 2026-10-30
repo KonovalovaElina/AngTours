@@ -1,63 +1,61 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TourItemService } from '../../services/tour-item.service';
+import { UserService } from '../../services/user.service';
 import { ITour } from '../../models/tour';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { IOrder } from '../../models/order';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { ToursService } from '../../services/tours.service';
 
 @Component({
   selector: 'app-order',
-  imports: [MatInputModule, CommonModule, MatButtonModule, FormsModule],
+  imports: [MatInputModule, CommonModule, MatButtonModule, FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './order.component.html',
   styleUrl: './order.component.scss',
 })
 export class OrderComponent implements OnInit {
-  private readonly route = inject(ActivatedRoute);
-  private tourItemService = inject(TourItemService);
-  private router = inject(Router);
-  private tourIdFromUrl: string | null = null;
   tour: ITour | null = null;
   order: IOrder | null = null;
+  tourId: string = null;
+  userForm: FormGroup;
 
-  surname = '';
-  name = '';
-  email = '';
-
-  isSubmitted = false;
-  successMessage = '';
-
+  constructor(
+    private readonly route: ActivatedRoute,
+    private toursService: ToursService,
+    private tourItemService: TourItemService,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    const tourId = this.route.snapshot.queryParamMap.get('tourId');
-    console.log('[Order] Получен tourId:', tourId, '(тип:', typeof tourId, ')');
+    const tourId = this.route.snapshot.paramMap.get('id');
+    if (tourId) {
+      this.tourId = tourId;
+      this.tourItemService.getTour(tourId).subscribe((tour) => {
+        this.tour = tour;
+      });
+    }
 
-    this.tourItemService.getTour(tourId).subscribe((data: any) => {
-      this.tour = data;
+    this.userForm = new FormGroup({
+      firstName: new FormControl('', {validators: Validators.required}),
+      lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      birthDate: new FormControl('', [Validators.required]),
+      age: new FormControl('', [Validators.required]),
+      citizenship: new FormControl('',[Validators.required]),
     })
   }
 
   onSubmit(): void {
-    if (!this.surname.trim() || !this.name.trim() || !this.email.trim()) {
-      alert('Пожалуйста, заполните все поля.');
-      return;
+    const userLogin = this.userService.getUser().login;
+    const personalDate = this.userForm.getRawValue();
+    const postObj = {
+      userLogin,
+      tourId: this.tourId,
+      personalDate: [personalDate]
     }
-
-    const orderData: IOrder = {
-      tourId: this.tour.id,
-      surname: this.surname.trim(),
-      name: this.name.trim(),
-      email: this.email.trim(),
-    };
-
-    console.log('Данные заказа:', orderData);
-
-    // Эмуляция успешной отправки (убери setTimeout, если делаешь реальный запрос)
-    setTimeout(() => {
-      this.isSubmitted = true;
-      this.successMessage = 'Спасибо! Ваш заказ успешно оформлен. Мы свяжемся с вами в ближайшее время.';
-    }, 600);
+    this.toursService.postOrder(postObj).subscribe();
   }
 }

@@ -26,7 +26,7 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/tour-item/tour-item.component').then(c => c.TourItemComponent)
       },
       {
-        path: 'order',
+        path: 'order/:id',
         loadComponent: () => import('./pages/order/order.component').then(c => c.OrderComponent)
       },
     ]

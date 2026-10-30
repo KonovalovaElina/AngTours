@@ -15,7 +15,7 @@ import { MapComponent } from '../../shared/components/map/map.component';
 import { BasketService } from '../../services/basket.service';
 
 // RxJS
-import { fromEvent, Subject } from 'rxjs';
+import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, map, tap, takeUntil } from 'rxjs/operators';
 
 

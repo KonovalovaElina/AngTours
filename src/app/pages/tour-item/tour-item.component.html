@@ -1,5 +1,7 @@
+<a routerLink="/">Назад</a>
 <div class="tour-wrap">
-  <mat-card class="tour-item" appearance="outlined">
+  @if (tour) {
+    <mat-card class="tour-item" appearance="outlined">
     <mat-card-header>
       <mat-card-title-group>
         <mat-card-title>{{ tour.name }}</mat-card-title>
@@ -19,4 +21,5 @@
       <button (click)="goToOrder()" mat-raised-button>Оформить заказ</button>
     </mat-card-actions>
   </mat-card>
+  }
 </div>

@@ -1,99 +1,67 @@
+<a routerLink="/">Назад</a>
 <h2>Оформление заказа</h2>
-
-<div class="order-card">
+<div class="order-card col-6">
   @if (tour) {
-    <div class="tour-info">
-      <h3>{{ tour.name }}</h3>
-      <p>{{ tour.description }}</p>
-      <p><strong>Оператор:</strong> {{ tour.tourOperator }}</p>
-      <p><strong>Дата:</strong> {{ tour.date | date:'longDate' }}</p>
-      <p><strong>Цена:</strong> {{ tour.price }}</p>
-    </div>
+    <div class="tour-info mt-3">
+    <h3>{{ tour?.name }}</h3>
+    <p>{{ tour?.description }}</p>
+    <p><strong>Оператор:</strong> {{ tour?.tourOperator }}</p>
+    <p><strong>Дата:</strong> {{ tour?.date | date:'longDate' }}</p>
+    <p><strong>Цена:</strong> {{ tour?.price }}</p>
+  </div>
   } @else {
-    <p>Загрузка тура...</p>
+    <p class="text-muted">Тур загружается…</p>
   }
+  
 
-  <div class="order-layout">
-    @if (!isSubmitted) {
-      <div class="order-details">
-        <!-- Сообщение об ошибке/предупреждении — простой блок вместо mat-snack-bar -->
-        @if (successMessage) {
-          <div class="alert-message">
-            {{ successMessage }}
-          </div>
-        }
-
-        <form (ngSubmit)="onSubmit()" #orderForm="ngForm">
-          <mat-form-field hintLabel="Минимум 2 символа">
-            <mat-label>Ваша фамилия</mat-label>
-            <input
-              matInput
-              name="surname"
-              required
-              minlength="2"
-              [(ngModel)]="surname"
-              #surnameInput="ngModel"
-              placeholder="Иванов"
-            />
-            <mat-hint align="end">{{ surname?.length || 0 }}/2+</mat-hint>
-            @if (surnameInput.invalid && surnameInput.touched) {
-              <mat-error>Минимум 2 символа</mat-error>
-            }
-          </mat-form-field>
-
-          <mat-form-field hintLabel="Минимум 2 символа">
-            <mat-label>Ваше имя</mat-label>
-            <input
-              matInput
-              name="name"
-              required
-              minlength="2"
-              [(ngModel)]="name"
-              #nameInput="ngModel"
-              placeholder="Иван"
-            />
-            <mat-hint align="end">{{ name?.length || 0 }}/2+</mat-hint>
-            @if (nameInput.invalid && nameInput.touched) {
-              <mat-error>Минимум 2 символа</mat-error>
-            }
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>Ваш email</mat-label>
-            <input
-              matInput
-              name="email"
-              type="email"
-              required
-              [(ngModel)]="email"
-              #emailInput="ngModel"
-              placeholder="exam@example.com"
-            />
-            @if (emailInput.invalid && emailInput.touched) {
-              <mat-error>Введите корректный email</mat-error>
-            }
-          </mat-form-field>
-
-          <p>Мы свяжемся с Вами после получения заказа</p>
-
-          <div class="submit-wrapper">
-            <button
-              mat-raised-button
-              color="primary"
-              type="submit"
-              [disabled]="!orderForm.valid"
-            >
-              Отправить заказ
-            </button>
-          </div>
-        </form>
+  <div class="order-layout mt-3">
+    <h3>Информация о покупателе</h3>
+    <form (ngSubmit)="onSubmit()" [formGroup]="userForm">
+      <div class="mt-3 user-info">
+        <div class="form-group mt-3">
+          <label for="name" class="mx-3">Имя</label>
+          <input type="text"
+            class="form-control mt-3"
+            id="name"
+            formControlName="firstName"
+            placeholder="Введите имя">
+        </div>
+        <div class="form-group mt-3">
+          <label for="surname" class="mx-3">Фамилия</label>
+          <input type="text"
+            class="form-control mt-3"
+            id="surname"
+            formControlName="lastName"
+            placeholder="Введите фамилию">
+        </div>
+        <div class="form-group mt-3">
+          <label for="age" class="mx-3">Возраст</label>
+          <input type="number"
+            class="form-control mt-3"
+            id="age"
+            formControlName="age"
+            placeholder="Ваш возраст">
+        </div>
+        <div class="form-group mt-3">
+          <label for="birthDate" class="mx-3">Дата рождения</label>
+          <input type="date"
+            class="form-control mt-3"
+            id="birthDate"
+            formControlName="birthDate"
+            placeholder="Укажите дату рождения">
+        </div>
+        <div class="form-group mt-3">
+          <label for="citizenship" class="mx-3">Гражданство</label>
+          <input type="text"
+            class="form-control mt-3"
+            id="citizenship"
+            formControlName="citizenship"
+            placeholder="Введите гражданство">
+        </div>
+        <div class="form-group mt-3">
+          <button type="submit" [disabled]="userForm.invalid" mat-raised-button>Перейти к оформлению</button>
+        </div>
       </div>
-    } @else {
-      <!-- Экран успеха -->
-      <div class="success-block">
-        <h3>Заказ оформлен</h3>
-        <p>{{ successMessage }}</p>
-      </div>
-    }
+    </form>
   </div>
 </div>

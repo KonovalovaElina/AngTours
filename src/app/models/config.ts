@@ -5,5 +5,6 @@ export interface IConfig {
   tourItemBase: string,
   countries: string,
   countryByCode: string,
-  getWeather: string
+  getWeather: string,
+  order: string
 }

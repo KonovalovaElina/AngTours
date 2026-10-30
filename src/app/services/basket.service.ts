@@ -13,19 +13,16 @@ export class BasketService {
 
   readonly instanceId = Math.random().toString(36).slice(2, 8);
 
-  constructor() {
-    console.log('BasketService создан, instance id:', this.instanceId);
-  }
+  constructor() {}
 
   setItemToBasket(item: ITour): void {
     this.basketStore.push(item);
     item.inBasket = true;
-    console.log('addItem called, instance id:', Math.random());
     this.basketSubject.next(this.basketStore);
   }
 
   removeItemFromBasket(item: ITour): void {
-    this.basketStore = this.basketStore.filter((tour) => tour !== item);
+    this.basketStore = this.basketStore.filter((tour) => tour.id !== item.id);
     item.inBasket = false;
     this.basketSubject.next(this.basketStore);
   }

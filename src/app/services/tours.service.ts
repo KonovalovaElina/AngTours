@@ -1,16 +1,25 @@
 import { inject, Injectable } from "@angular/core";
 import { TourApiService } from "./api/tour-api.service";
-import { catchError, delay, forkJoin, map, Observable, of, Subject } from "rxjs";
+import { catchError, delay, forkJoin, map, Observable, of, Subject, withLatestFrom } from "rxjs";
 import { ICountriesResponseItem, ITour, IToursServerRes, ITourTypes } from "../models/tour";
+import { IOrder, IOrderResp } from "../models/order";
+import { API } from "../shared/api";
+import { HttpClient } from "@angular/common/http";
+import { IConfig } from "../models/config";
+import { BasketService } from "./basket.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ToursService {
-  private toursApi = inject(TourApiService);
   private tourDateSubject = new Subject<ITourTypes>();
   readonly tourDate$ = this.tourDateSubject.asObservable();
-  constructor() {}
+  private api = inject<IConfig>(API);
+  constructor(
+    private toursApi: TourApiService,
+    private http: HttpClient,
+    private basketService: BasketService
+  ) {}
 
   getTours(): Observable<ITour[]> {
     const countries$ = this.toursApi.getCountries();
@@ -18,10 +27,8 @@ export class ToursService {
 
     return forkJoin<[ICountriesResponseItem[], IToursServerRes]>([countries$, tours$]).pipe(
       delay(1000),
-
-      map((data
-        
-      ) => {
+      withLatestFrom(this.basketService.basketStore$),
+      map(([data, basketData]) => {
         console.log('data', data);
 
         let toursWithCountries = [] as ITour[];
@@ -37,7 +44,8 @@ export class ToursService {
           toursWithCountries = toursArr.map<ITour>((tour) => {
             return {
               ...tour,
-              country: countriesMap.get(tour.code) || null
+              country: countriesMap.get(tour.code) || null,
+              inBasket: basketData.some((basketTour) => basketTour.id === tour.id),
             }
           });
         }
@@ -54,5 +62,9 @@ export class ToursService {
 
   getCountryByCode(code: string) {
     return this.toursApi.getCountryByCode(code);
+  }
+
+  postOrder(orderBody: IOrder): Observable<IOrderResp> {
+    return this.http.post<IOrderResp>(this.api.order, orderBody);
   }
 }

@@ -61,6 +61,7 @@ export class ToursComponent implements OnInit, AfterViewInit {
   public mapCountryName: string = null;
   location: ILocation;
   weatherData: IWeatherData;
+  selectedTour: ITour = null;
 
 
   ngOnInit(): void {
@@ -208,7 +209,7 @@ export class ToursComponent implements OnInit, AfterViewInit {
 
       this.location = { lat: data.countryData.latlng[0], lng: data.countryData.latlng[1] };
       this.weatherData = data.weatherData;
-
+      this.selectedTour = tour;
       this.showModal = true;
       this.cdr.markForCheck();
     });

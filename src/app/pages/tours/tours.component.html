@@ -70,6 +70,9 @@
       <p *ngIf="weatherData.rain > 0">Идет дождь</p>
       <p *ngIf="weatherData.snowfall > 0">Идет снег</p>
     }
+    @if (selectedTour) {
+      <p>Тур {{selectedTour.name}}</p>
+    }
     @if (location) {
       <app-map [location]="location"></app-map>
     } @else {

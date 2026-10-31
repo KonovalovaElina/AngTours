@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TourItemService } from '../../services/tour-item.service';
 import { UserService } from '../../services/user.service';
 import { ITour } from '../../models/tour';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { IOrder } from '../../models/order';
 import { FormControl, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -12,7 +12,7 @@ import { ToursService } from '../../services/tours.service';
 
 @Component({
   selector: 'app-order',
-  imports: [MatInputModule, CommonModule, MatButtonModule, FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [MatInputModule, CommonModule, MatButtonModule, FormsModule, ReactiveFormsModule, RouterLink, NgTemplateOutlet],
   templateUrl: './order.component.html',
   styleUrl: './order.component.scss',
 })
@@ -21,6 +21,13 @@ export class OrderComponent implements OnInit {
   order: IOrder | null = null;
   tourId: string = null;
   userForm: FormGroup;
+  userFormFieldsArr = [
+    { label: 'Имя', placeHolder: 'Введите имя', control: 'firstName', type: 'text' },
+    { label: 'Фамилия', placeHolder: 'Введите фамилию', control: 'lastName', type: 'text' },
+    { label: 'Возраст', placeHolder: 'Укажите возраст', control: 'age', type: 'number' },
+    { label: 'Дата рождения', placeHolder: 'Укажите дату рождения', control: 'birthDate', type: 'date' },
+    { label: 'Гражданство', placeHolder: 'Введите гражданство', control: 'citizenship', type: 'text' },
+  ];
 
   constructor(
     private readonly route: ActivatedRoute,

@@ -3,65 +3,44 @@
 <div class="order-card col-6">
   @if (tour) {
     <div class="tour-info mt-3">
-    <h3>{{ tour?.name }}</h3>
-    <p>{{ tour?.description }}</p>
-    <p><strong>Оператор:</strong> {{ tour?.tourOperator }}</p>
-    <p><strong>Дата:</strong> {{ tour?.date | date:'longDate' }}</p>
-    <p><strong>Цена:</strong> {{ tour?.price }}</p>
-  </div>
+      <h3>{{ tour.name }}</h3>
+      <p>{{ tour.description }}</p>
+      <p><strong>Оператор:</strong> {{ tour.tourOperator }}</p>
+      <p><strong>Дата:</strong> {{ tour.date | date: 'longDate' }}</p>
+      <p><strong>Цена:</strong> {{ tour.price }}</p>
+    </div>
   } @else {
     <p class="text-muted">Тур загружается…</p>
   }
-  
 
   <div class="order-layout mt-3">
     <h3>Информация о покупателе</h3>
     <form (ngSubmit)="onSubmit()" [formGroup]="userForm">
       <div class="mt-3 user-info">
+        @for (field of userFormFieldsArr; track field.control) {
+          <ng-container
+            [ngTemplateOutlet]="formField"
+            [ngTemplateOutletContext]="field" />
+        }
+
         <div class="form-group mt-3">
-          <label for="name" class="mx-3">Имя</label>
-          <input type="text"
-            class="form-control mt-3"
-            id="name"
-            formControlName="firstName"
-            placeholder="Введите имя">
-        </div>
-        <div class="form-group mt-3">
-          <label for="surname" class="mx-3">Фамилия</label>
-          <input type="text"
-            class="form-control mt-3"
-            id="surname"
-            formControlName="lastName"
-            placeholder="Введите фамилию">
-        </div>
-        <div class="form-group mt-3">
-          <label for="age" class="mx-3">Возраст</label>
-          <input type="number"
-            class="form-control mt-3"
-            id="age"
-            formControlName="age"
-            placeholder="Ваш возраст">
-        </div>
-        <div class="form-group mt-3">
-          <label for="birthDate" class="mx-3">Дата рождения</label>
-          <input type="date"
-            class="form-control mt-3"
-            id="birthDate"
-            formControlName="birthDate"
-            placeholder="Укажите дату рождения">
-        </div>
-        <div class="form-group mt-3">
-          <label for="citizenship" class="mx-3">Гражданство</label>
-          <input type="text"
-            class="form-control mt-3"
-            id="citizenship"
-            formControlName="citizenship"
-            placeholder="Введите гражданство">
-        </div>
-        <div class="form-group mt-3">
-          <button type="submit" [disabled]="userForm.invalid" mat-raised-button>Перейти к оформлению</button>
+          <button type="submit" [disabled]="userForm.invalid" mat-raised-button>
+            Перейти к оформлению
+          </button>
         </div>
       </div>
     </form>
   </div>
 </div>
+
+<ng-template #formField let-control="control" let-placeHolder="placeHolder" let-label="label" let-type="type">
+  <div [formGroup]="userForm" class="form-group mt-3">
+    <label [attr.for]="control" class="mx-3">{{ label }}</label>
+    <input
+      [type]="type"
+      class="form-control mt-3"
+      [id]="control"
+      [formControlName]="control"
+      [placeholder]="placeHolder">
+  </div>
+</ng-template>

@@ -9,10 +9,11 @@ import { IOrder } from '../../models/order';
 import { FormControl, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { ToursService } from '../../services/tours.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-order',
-  imports: [MatInputModule, CommonModule, MatButtonModule, FormsModule, ReactiveFormsModule, RouterLink, NgTemplateOutlet],
+  imports: [MatInputModule, CommonModule, MatButtonModule, FormsModule, ReactiveFormsModule, RouterLink, NgTemplateOutlet, MatSnackBarModule],
   templateUrl: './order.component.html',
   styleUrl: './order.component.scss',
 })
@@ -34,7 +35,8 @@ export class OrderComponent implements OnInit {
     private toursService: ToursService,
     private tourItemService: TourItemService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -62,7 +64,25 @@ export class OrderComponent implements OnInit {
       userLogin,
       tourId: this.tourId,
       personalDate: [personalDate]
-    }
-    this.toursService.postOrder(postObj).subscribe();
+    };
+
+    this.toursService.postOrder(postObj).subscribe({
+      next: () => {
+        this._snackBar.open('Заказ успешно оформлен!', 'Закрыть', {
+          duration: 4000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center'
+        });
+        this.router.navigate(['/']);
+      },
+      error: () => {
+        this._snackBar.open('Ошибка при оформлении заказа. Попробуйте ещё раз.', 'Закрыть', {
+          duration: null, // не закрываем сама — пусть пользователь увидит и закроет
+          panelClass: ['error-snackbar'],
+          verticalPosition: 'top',
+          horizontalPosition: 'center'
+        });
+      }
+    });
   }
 }

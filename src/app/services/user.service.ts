@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { IUser } from '../models/user';
+import { BasketService } from './basket.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  user: IUser;
+  user: IUser | null = null;
 
-  constructor() {
+  constructor(private basketService: BasketService) {
     this.restoreUserFromStore();
   }
 
@@ -39,5 +40,6 @@ export class UserService {
   logout(): void {
     this.user = null;
     localStorage.removeItem('user');
+    this.basketService.clearBasket();
   }
 }

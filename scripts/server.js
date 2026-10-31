@@ -129,20 +129,22 @@ app.post('/auth', (req, res) => {
     });
 
     /*******************post order */
-    app.post('/order', (req, res) => { 
-      const jsonFileData =  fs.readFileSync(orderJson, 'utf-8', (err, data) => {}, (err) => {
-        console.log('err read file order', err);});
-                // parse data
-        const  parseJsonData = JSON.parse(jsonFileData);
+    app.post('/order', (req, res) => {
+      const orderJson = './server-data/orders.json';
+
+      try {
+        const jsonFileData = fs.readFileSync(orderJson, 'utf-8');
+        const parseJsonData = JSON.parse(jsonFileData);
         const order = req.body;
-        parseJsonData.orders.push(order)
+        parseJsonData.orders.push(order);
 
-        const json = JSON.stringify({orders: parseJsonData.orders});
-
-        fs.writeFileSync(orderJson, json, 'utf-8', (data) => {}, (err) => {
-          console.log('err write file', err)
-        });
-        res.send('ok');
+        const json = JSON.stringify({ orders: parseJsonData.orders });
+        fs.writeFileSync(orderJson, json, 'utf-8');
+        res.json({ message: 'ok' });
+      } catch (err) {
+        console.log('err order save:', err);
+        res.status(500).send('order save error');
+      }
     });
 
     /*******************get nearest tour */

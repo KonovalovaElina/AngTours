@@ -44,11 +44,7 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
 
   onAuth(ev: Event): void {
     this.userApiService.auth({login: this.login, password: this.password}).subscribe (() => {
-      if (this.saveInStore) {
-        this.userService.saveUserInStore({login: this.login});
-      } else {
-        this.userService.setUser({login: this.login});
-      }
+      this.userService.saveUserInStore({login: this.login});
       this.router.navigate(["/"]);
     },
     (err) => {

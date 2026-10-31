@@ -31,6 +31,7 @@
   .basket-icon-wrap {
     position: relative;
     overflow: visible;
+    cursor: pointer;
 
     ::ng-deep .mat-badge-content {
       font-size: 11px;

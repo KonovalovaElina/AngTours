@@ -10,7 +10,8 @@
       [matBadge]="(basketStore$ | async)?.length || 0"
       [matBadgeHidden]="(basketStore$ | async)?.length === 0"
       matBadgeSize="small"
-      matBadgeColor="warn">
+      matBadgeColor="warn"
+      (click)="goToBasket()">
       <i class="material-icons">shopping_cart</i>
     </div>
     <div class="user-info-wrap">

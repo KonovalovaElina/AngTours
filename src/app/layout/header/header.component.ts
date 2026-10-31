@@ -54,4 +54,8 @@ export class HeaderComponent implements OnInit {
     this.userService.logout();
     this.router.navigate(['/auth']);
   }
+
+  goToBasket(): void {
+    this.router.navigate(['/basket']);
+  }
 }

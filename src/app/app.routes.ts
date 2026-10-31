@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { ToursComponent } from './pages/tours/tours.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { BasketComponent } from './pages/basket/basket.component';
 
 export const routes: Routes = [
 
@@ -28,6 +29,10 @@ export const routes: Routes = [
       {
         path: 'order/:id',
         loadComponent: () => import('./pages/order/order.component').then(c => c.OrderComponent)
+      },
+      {
+        path: 'basket',
+        component: BasketComponent
       },
     ]
   },

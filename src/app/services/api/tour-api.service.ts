@@ -10,6 +10,7 @@ import { MapService } from "../map.service";
   providedIn: 'root'
 })
 export class TourApiService {
+  private apiUrl = 'http://localhost:3000/tours';
   private api = inject(API);
   private http = inject(HttpClient);
   private loaderService = inject(LoaderService);
@@ -21,9 +22,9 @@ export class TourApiService {
 
   constructor() {}
 
-  getTours(): Observable<IToursServerRes> {
+  getTours(): Observable<ITour[]> {
     this.loaderService.setLoader(true);
-    return this.http.get<IToursServerRes>(`${this.api.tours}`).pipe(
+    return this.http.get<ITour[]>(`${this.apiUrl}`).pipe(
       delay(3000),
       finalize(() => {
         this.loaderService.setLoader(false);

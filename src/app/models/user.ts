@@ -3,7 +3,8 @@ export interface IUser {
 }
 
 export interface IAuthUser extends IUser {
-  password: string
+  password: string,
+  id?: string
 }
 
 export interface IRegisterUser extends IAuthUser {
@@ -14,6 +15,10 @@ export interface IRegUserRes {
   status: string
 }
 
-export interface IAuthUserRes extends IRegisterUser {
-  
+export interface IAuthUserRes {
+  access_token: string;
+  id: string;
+  user: {
+    login: string;
+  };
 }

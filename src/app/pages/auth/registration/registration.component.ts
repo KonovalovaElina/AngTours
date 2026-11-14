@@ -36,18 +36,22 @@ export class RegistrationComponent {
         horizontalPosition: 'center'
       });
     },
-    (err) => {
-      let message = 'Произошла ошибка регистрации. Попробуйте позже.';
+    (err: HttpErrorResponse) => {
+      const errorBody = err.error;
+      let message: string | null = null;
 
-      if (err instanceof HttpErrorResponse) {
-        const errorText = err.error?.message || String(err.error) || '';
-
-        if (
-          errorText.includes('Пользователь уже зарегестрирован')
-        ) {
-          message = 'Пользователь с таким логином уже зарегистрирован.';
-        }
+      if (typeof errorBody === 'object' && errorBody !== null && typeof errorBody.errorText === 'string') {
+        message = errorBody.errorText;
       }
+
+      // Если сервер ничего не прислал или прислал пустую строку — подставляем понятный текст
+      if (!message) {
+        if (err.status === 409) {
+          message = 'Пользователь с таким логином уже зарегистрирован.';
+        } else {
+          message = 'Произошла ошибка регистрации. Попробуйте позже.';
+        }
+      } 
 
       this._snackBar.open(message, 'Закрыть', {
         duration: null,

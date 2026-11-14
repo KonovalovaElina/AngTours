@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 import { LoaderComponent } from '../../../shared/components/loader/loader.component';
 import { AsyncPipe } from '@angular/common';
 import { LoaderService } from '../../../services/loader.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { IAuthUserRes } from '../../../models/user';
 @Component({
   selector: 'app-authorization',
   imports: [NgClass, FormsModule, MatButtonModule, MatCheckboxModule, MatSnackBarModule, LoaderComponent, AsyncPipe],
@@ -43,12 +45,34 @@ export class AuthorizationComponent implements OnInit, OnDestroy {
   }
 
   onAuth(ev: Event): void {
-    this.userApiService.auth({login: this.login, password: this.password}).subscribe (() => {
+    this.userApiService.auth({login: this.login, password: this.password}).subscribe ((res: IAuthUserRes) => {
+      localStorage.setItem('access_token', res.access_token);
+      localStorage.setItem('id', res.id);
       this.userService.saveUserInStore({login: this.login});
       this.router.navigate(["/"]);
     },
-    (err) => {
-      this._snackBar.open('Ошибка авторизации. Проверьте логин и пароль.', 'Закрыть', {
+    (err: HttpErrorResponse) => {
+      const errorBody = err.error;
+      let message: string | null = null;
+
+      if (
+        typeof errorBody === 'object' &&
+        errorBody !== null &&
+        typeof errorBody.errorText === 'string'
+      ) {
+        message = errorBody.errorText;
+      }
+
+      // Если сервер ничего не прислал — подставляем понятный текст по статусу
+      if (!message) {
+        if (err.status === 409) {
+          message = 'Ошибка авторизации. Проверьте логин и пароль.';
+        } else {
+          message = 'Произошла ошибка авторизации. Попробуйте позже.';
+        }
+      }
+
+      this._snackBar.open(message, 'Закрыть', {
         duration: null, // Не закрываем автоматически — пусть пользователь сам закроет
         panelClass: ['error-snackbar'],
         verticalPosition: 'top',

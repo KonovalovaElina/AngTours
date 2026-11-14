@@ -23,8 +23,8 @@ export class OrderComponent implements OnInit {
   tourId: string = null;
   userForm: FormGroup;
   userFormFieldsArr = [
-    { label: 'Имя', placeHolder: 'Введите имя', control: 'firstName', type: 'text' },
-    { label: 'Фамилия', placeHolder: 'Введите фамилию', control: 'lastName', type: 'text' },
+    { label: 'Имя', placeHolder: 'Введите имя', control: 'firstname', type: 'text' },
+    { label: 'Фамилия', placeHolder: 'Введите фамилию', control: 'lastname', type: 'text' },
     { label: 'Возраст', placeHolder: 'Укажите возраст', control: 'age', type: 'number' },
     { label: 'Дата рождения', placeHolder: 'Укажите дату рождения', control: 'birthDate', type: 'date' },
     { label: 'Гражданство', placeHolder: 'Введите гражданство', control: 'citizenship', type: 'text' },
@@ -49,8 +49,8 @@ export class OrderComponent implements OnInit {
     }
 
     this.userForm = new FormGroup({
-      firstName: new FormControl('', {validators: Validators.required}),
-      lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      firstname: new FormControl('', {validators: Validators.required}),
+      lastname: new FormControl('', [Validators.required, Validators.minLength(2)]),
       birthDate: new FormControl('', [Validators.required]),
       age: new FormControl('', [Validators.required]),
       citizenship: new FormControl('',[Validators.required]),
@@ -58,12 +58,27 @@ export class OrderComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const userLogin = this.userService.getUser().login;
-    const personalDate = this.userForm.getRawValue();
+    const userId = localStorage.getItem('id');
+
+    if (!userId) {
+      this._snackBar.open('Для оформления заказа войдите в аккаунт', 'Войти', {
+        duration: 4000,
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+      });
+      this.router.navigate(['/auth']);
+      return;
+    }
+
+    const { firstname, lastname, birthDate, age, citizenship } = this.userForm.getRawValue();
     const postObj = {
-      userLogin,
+      firstname,
+      lastname,
+      birthDate,
+      age: Number(age),
+      citizenship,
       tourId: this.tourId,
-      personalDate: [personalDate]
+      userId,
     };
 
     this.toursService.postOrder(postObj).subscribe({

@@ -65,6 +65,10 @@ export class ToursComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
+    this.toursService.tourUpdateSubject$.subscribe((data) => {
+      this.tours = data;
+    })
+
     this.toursService.getTours().subscribe((toursData) => {
       this.tours = toursData;
       this.toursCopy = [...this.tours];

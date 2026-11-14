@@ -1,9 +1,13 @@
 export type UserFormValue = { firstname: string; lastname: string; birthDate: string; age: number; citizenship: string };
 
 export interface IOrder {
-  userLogin: string;
+  firstname: string;
+  lastname: string;
+  birthDate: string;
+  age: number;
+  citizenship: string
   tourId: string;
-  personalDate: UserFormValue[];
+  userId: string;
 }
 
 export interface IOrderResp {

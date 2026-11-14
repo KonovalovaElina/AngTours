@@ -8,6 +8,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { FiltersService, FiltersState } from '../../services/filters.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { HttpClient } from '@angular/common/http';
+import { ToursService } from '../../services/tours.service';
 
 @Component({
   selector: 'app-aside',
@@ -20,7 +22,10 @@ import { MatButtonModule } from '@angular/material/button';
 
 export class AsideComponent implements OnInit {
   private filtersService = inject(FiltersService);
+  private toursService = inject(ToursService);
   private cdr = inject(ChangeDetectorRef);
+  private http = inject(HttpClient);
+  private apiUrl = 'http://localhost:3000/tours/';
 
   @ViewChild('dateInput') dateInputEl!: ElementRef<HTMLInputElement>;
 
@@ -57,5 +62,21 @@ export class AsideComponent implements OnInit {
   onResetFilters(): void {
     this.filtersService.reset();
     this.cdr.markForCheck();
+  }
+
+  initTours(): void {
+    this.http.post(this.apiUrl, {}).subscribe((data: any) => {
+      const tours = data.map((tour: any) => ({
+        ...tour,
+        id: tour._id ?? tour.id,
+      }));
+      this.toursService.updateToursList(tours);
+    });
+  }
+
+  deleteTours(): void {
+    this.http.delete(this.apiUrl).subscribe(() => {
+      this.toursService.updateToursList([]);
+    });
   }
 }

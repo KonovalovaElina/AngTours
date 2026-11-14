@@ -7,12 +7,12 @@ import { ITour } from "../../models/tour";
   providedIn: 'root'
 })
 export class TourItemApiService {
-  private api = inject(API);
+  private apiUrl = 'http://localhost:3000/tours';
   private http = inject(HttpClient);
   constructor() {}
 
   getTour(id: string | number) {
-    const url = `${this.api.tourItemBase}/${id}`;
+    const url = `${this.apiUrl}/${id}`;
     return this.http.get<ITour>(url);
   }
 }

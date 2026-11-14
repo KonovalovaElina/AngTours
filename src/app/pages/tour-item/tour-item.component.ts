@@ -28,8 +28,11 @@ export class TourItemComponent implements OnInit {
 
   goToOrder(): void {
     const tourId = this.route.snapshot.paramMap.get('id');
-    if (!tourId) return;
 
-    this.router.navigate(['/order', this.tour.id]);
+    if (!tourId) {
+      return;
+    }
+
+    this.router.navigate(['/order', tourId]);
   }
 }

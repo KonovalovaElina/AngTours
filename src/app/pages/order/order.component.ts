@@ -10,6 +10,7 @@ import { FormControl, FormGroup, FormsModule, Validators, ReactiveFormsModule } 
 import { MatInputModule } from '@angular/material/input';
 import { ToursService } from '../../services/tours.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { OrderListService } from '../../services/order-list.service';
 
 @Component({
   selector: 'app-order',
@@ -23,16 +24,16 @@ export class OrderComponent implements OnInit {
   tourId: string = null;
   userForm: FormGroup;
   userFormFieldsArr = [
-    { label: 'Имя', placeHolder: 'Введите имя', control: 'firstname', type: 'text' },
-    { label: 'Фамилия', placeHolder: 'Введите фамилию', control: 'lastname', type: 'text' },
-    { label: 'Возраст', placeHolder: 'Укажите возраст', control: 'age', type: 'number' },
-    { label: 'Дата рождения', placeHolder: 'Укажите дату рождения', control: 'birthDate', type: 'date' },
-    { label: 'Гражданство', placeHolder: 'Введите гражданство', control: 'citizenship', type: 'text' },
+    { label: 'Имя', placeholder: 'Введите имя', control: 'firstname', type: 'text' },
+    { label: 'Фамилия', placeholder: 'Введите фамилию', control: 'lastname', type: 'text' },
+    { label: 'Возраст', placeholder: 'Укажите возраст', control: 'age', type: 'number' },
+    { label: 'Дата рождения', placeholder: 'Укажите дату рождения', control: 'birthDate', type: 'date' },
+    { label: 'Гражданство', placeholder: 'Введите гражданство', control: 'citizenship', type: 'text' },
   ];
 
   constructor(
     private readonly route: ActivatedRoute,
-    private toursService: ToursService,
+    private orderListService: OrderListService,
     private tourItemService: TourItemService,
     private userService: UserService,
     private router: Router,
@@ -81,7 +82,7 @@ export class OrderComponent implements OnInit {
       userId,
     };
 
-    this.toursService.postOrder(postObj).subscribe({
+    this.orderListService.postOrder(postObj).subscribe({
       next: () => {
         this._snackBar.open('Заказ успешно оформлен!', 'Закрыть', {
           duration: 4000,

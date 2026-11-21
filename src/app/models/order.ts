@@ -8,8 +8,14 @@ export interface IOrder {
   citizenship: string
   tourId: string;
   userId: string;
+  _id?: string;
 }
 
 export interface IOrderResp {
   status: string
+}
+
+export interface IOrdersResponse {
+  orders: IOrder[];
+  total: number;
 }

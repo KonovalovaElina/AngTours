@@ -33,7 +33,7 @@
   </div>
 </div>
 
-<ng-template #formField let-control="control" let-placeHolder="placeHolder" let-label="label" let-type="type">
+<ng-template #formField let-control="control" let-placeholder="placeholder" let-label="label" let-type="type">
   <div [formGroup]="userForm" class="form-group mt-3">
     <label [attr.for]="control" class="mx-3">{{ label }}</label>
     <input
@@ -41,6 +41,6 @@
       class="form-control mt-3"
       [id]="control"
       [formControlName]="control"
-      [placeholder]="placeHolder">
+      [placeholder]="placeholder">
   </div>
 </ng-template>

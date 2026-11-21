@@ -1,6 +1,6 @@
 export type ITourTypes = 'all' | 'single' | 'multi';
 export interface ITour {
-  id: string;
+  id?: string;
   name: string;
   description: string;
   tourOperator: string;
@@ -16,6 +16,10 @@ export interface ITour {
 
 export interface IToursServerRes {
   tours: Omit<ITour, 'country' | 'inBasket'>[];
+}
+
+export interface ITourRes {
+  status: string;
 }
 
 export interface ICountriesResponseItem {

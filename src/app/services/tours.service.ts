@@ -1,8 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { TourApiService } from "./api/tour-api.service";
 import { BehaviorSubject, catchError, delay, forkJoin, map, Observable, of, Subject, withLatestFrom } from "rxjs";
-import { ICountriesResponseItem, ITour, ITourTypes } from "../models/tour";
-import { IOrder, IOrderResp } from "../models/order";
+import { ICountriesResponseItem, ITour, ITourRes, ITourTypes } from "../models/tour";
 import { API } from "../shared/api";
 import { HttpClient } from "@angular/common/http";
 import { IConfig } from "../models/config";
@@ -15,7 +14,7 @@ export class ToursService {
   private tourDateSubject = new Subject<ITourTypes>();
   readonly tourDate$ = this.tourDateSubject.asObservable();
   private api = inject<IConfig>(API);
-  private apiUrl = 'http://localhost:3000/orders/';
+  private apiUrl = 'http://localhost:3000/tours/';
   private tourUpdateSubject = new BehaviorSubject<ITour[]>([]);
   readonly tourUpdateSubject$ = this.tourUpdateSubject.asObservable();
 
@@ -72,7 +71,7 @@ export class ToursService {
     return this.toursApi.getCountryByCode(code);
   }
 
-  postOrder(orderBody: IOrder): Observable<IOrderResp> {
-    return this.http.post<IOrderResp>(this.apiUrl, orderBody);
+  createTour(formData: FormData): Observable<ITourRes> {
+    return this.http.post<ITourRes>(this.apiUrl, formData);
   }
 }

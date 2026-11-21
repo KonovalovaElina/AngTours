@@ -3,6 +3,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { ToursComponent } from './pages/tours/tours.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { BasketComponent } from './pages/basket/basket.component';
+import { OrderListComponent } from './pages/order-list/order-list.component';
 
 export const routes: Routes = [
 
@@ -33,6 +34,10 @@ export const routes: Routes = [
       {
         path: 'basket',
         component: BasketComponent
+      },
+      {
+        path: 'order-list',
+        component: OrderListComponent
       },
     ]
   },

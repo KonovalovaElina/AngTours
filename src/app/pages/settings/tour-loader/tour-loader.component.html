@@ -1,0 +1,42 @@
+<div class="tour-loader mt-3">
+  <h5>Создание тура</h5>
+  <form [formGroup]="tourForm" (ngSubmit)="createTour()">
+    <div class="mt-3 tour-info">
+      @for (field of tourFormFieldsArr; track field.control) {
+        <ng-container
+          [ngTemplateOutlet]="formField"
+          [ngTemplateOutletContext]="field" />
+      }
+
+      <div class="form-group mt-3">
+        <button type="submit" [disabled]="tourForm.invalid" mat-raised-button>
+          Загрузить тур
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<ng-template #formField let-control="control" let-placeholder="placeholder" let-label="label" let-type="type">
+  <div [formGroup]="tourForm" class="form-group mt-3">
+    <label [attr.for]="control" class="mx-3">{{ label }}</label>
+    @if (type === 'file') {
+      <input
+        type="file"
+        accept="image/*"
+        class="form-control mt-3"
+        [id]="control"
+        (change)="selectFile($event)" />
+      @if (imgPreview) {
+        <img [src]="imgPreview" alt="Превью" class="img-preview mt-2" />
+      }
+    } @else {
+      <input
+        [type]="type"
+        class="form-control mt-3"
+        [id]="control"
+        [formControlName]="control"
+        [placeholder]="placeholder" />
+    }
+  </div>
+</ng-template>

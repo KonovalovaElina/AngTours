@@ -17,16 +17,18 @@
           <mat-card class="tour-item" [attr.data-tour-id]="item.id" [attr.index]="i">
             <img
               mat-card-image
-              [src]="'/img/' + item.img"
+              [src]="'http://localhost:3000' + item.img"
             />
             <mat-card-content class="py-2">
               <h4 class="m-0">{{ item.name }}</h4>
               <small class="text-muted d-block mb-2">{{ item.date | date: 'longDate' }}</small>
               <p class="mb-0">{{ item.description }}</p>
-              <div (click)="showMap($event, item, item.country?.iso_code2)" class="country-info">
-                Страна: {{item.country?.name_ru}}
-                <img [src]="item.country?.flag_url"/>
-              </div>
+              <p class="mb-0">{{ item.tourOperator }}</p>
+              <h6 class="mb-0">{{ item.price }}</h6>
+              <!-- <div (click)="showMap($event, item, item.country?.iso_code2)" class="country-info"> -->
+                <!-- Страна: {{item.country?.name_ru}} -->
+                <!-- <img [src]="item.country?.flag_url"/> -->
+              <!-- </div> -->
             </mat-card-content>
             <mat-card-actions>
               <button (click)="goToTour(item)" mat-button>Подробнее</button>

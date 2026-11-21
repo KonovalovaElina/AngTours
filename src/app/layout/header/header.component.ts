@@ -24,7 +24,11 @@ export class HeaderComponent implements OnInit {
     {
       route: 'settings',
       title: 'Настройки'
-    }
+    },
+    {
+      route: 'order-list',
+      title: 'Заказы'
+    },
   ]
 
   username: string | null = null;
